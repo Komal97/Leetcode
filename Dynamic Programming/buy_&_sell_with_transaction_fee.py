@@ -15,15 +15,17 @@ The total profit is ((8 - 1) - 2) + ((9 - 4) - 2) = 8.
 '''
 
 class Solution:
-    def maxProfit(self, prices: List[int], fee: int) -> int:
+    def maxProfit(self, prices: List[int], fee: int):
         
         n = len(prices)
-        buy = -prices[0]
-        sold = 0
+        buy = -prices[0]                                        # stores value with extra stock
+        sold = 0                                                # stores max profit till now (bsbs)
         
         for i in range(1, n):
-            nbuy = max(buy, sold-prices[i])
-            nsold = max(sold, buy+prices[i]-fee)
+            nbuy = max(buy, sold-prices[i])                     # max(prv day buy or buy today) 
+                                                                # (sold-prices[i]) means buy on prv sold
+            nsold = max(sold, buy+prices[i]-fee)                # max(prv day sell or sell today)
+                                                                # (buy+prices[i]-fee) means sell on prv buy with transaction fee
             buy = nbuy
             sold = nsold
             
