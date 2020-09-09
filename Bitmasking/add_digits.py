@@ -10,7 +10,7 @@ Follow up: Could you do it without any loop/recursion in O(1) runtime?
 '''
 
 class Solution:
-    def addDigits(self, num: int) -> int:
+    def addDigits(self, num: int):
         
         if num <= 9:
             return num
