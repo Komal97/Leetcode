@@ -21,17 +21,21 @@ class Solution:
         c1 = 0
         c2 = 0
         for i in range(n):
-            num = nums[i]
-            if num == n1:
+            num = nums[i]           
+            # check if num is matched, then increment its counter    
+            if num == n1:                   
                 c1 += 1
-            elif num == n2:
+            elif num == n2:                 
                 c2 += 1
-            elif c1 == 0:
+            # if not initialized then initialized, 
+            # initilization is done after checking otherwise same element will be assigned to other variable as well
+            elif c1 == 0:                   
                 n1 = num
                 c1 = 1
             elif c2 == 0:
                 n2 = num
                 c2 = 1
+            # if not matched with anyone then decrement its count
             else:
                 c1 -= 1
                 c2 -= 1
