@@ -35,19 +35,31 @@ class Solution:
 
 # method - O(n^2)
 class Solution:
-    def maxProfit(self, k: int, prices: List[int]) -> int:
+    
+    def maxProfitInfinite(self, n, prices):
+        summ = 0
+        for i in range(1, n):
+            if prices[i] >= prices[i-1]:
+                summ += prices[i] - prices[i-1]
+        return summ
+        
+    def maxProfit(self, k: int, prices: List[int]):
         
         n = len(prices)
-        if k == 0 or n == 0:
+        if n == 0 or k == 0:
             return 0
         
+        # if k > n/2 means almost alternate transactions so it becomes infinite transaction problem
+        if 2*k > n:                                             
+            return self.maxProfitInfinite(n, prices)
+            
         dp = [[0]*(n) for _ in range(k+1)]
         
+        
         for i in range(1, k+1):
-            maxval = float('-inf')                                          # keep max from prev row
+            maxdiff = float('-inf')     # keep max from prev row
             for j in range(1, n):
-                maxval = max(maxval, dp[i-1][j-1] - prices[j-1])
-                dp[i][j] = max(maxval + prices[j], dp[i][j-1])
+                maxdiff = max(maxdiff, dp[i-1][j-1] - prices[j-1])
+                dp[i][j] = max(dp[i][j-1], maxdiff + prices[j])
                
         return dp[k][n-1]
-                
