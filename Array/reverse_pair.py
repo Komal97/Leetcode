@@ -20,6 +20,12 @@ class Solution:
     def merge(self, s, e, mid, temp, nums):
         
         count = 0
+        j = mid+1
+        for i in range(s, mid+1):                   # count for each element
+            while j <= e and nums[i] > 2*nums[j]:   # find all elements in second half which is smaller
+                j += 1
+            count += (j-(mid+1))
+        
         i = s
         j = mid+1
         k = s
@@ -48,7 +54,8 @@ class Solution:
     
         for i in range(s, e+1):
             nums[i] = temp[i]
- 
+        
+        return count
     
     def mergesort(self, s, e, nums, temp):
         
@@ -56,20 +63,13 @@ class Solution:
         if s < e:
             mid = (s+e)//2
 
-            count = self.mergesort(s, mid, nums, temp) + self.mergesort(mid+1, e, nums, temp)
-            
-            j = mid+1
-            for i in range(s, mid+1):                               # count for each element
-                while j <= e and nums[i] > 2*nums[j]:               # find all elements in second half which is smaller
-                    j += 1
-                count += j-(mid+1)
-        
-            self.merge(s, e, mid, temp, nums)
+            count += self.mergesort(s, mid, nums, temp)
+            count += self.mergesort(mid+1, e, nums, temp) 
+            count += self.merge(s, e, mid, temp, nums)
             #nums[s: e + 1] = sorted(nums[s: e + 1])
-
         return count
     
-    def reversePairs(self, nums: List[int]) -> int:
+    def reversePairs(self, nums: List[int]):
         
         n = len(nums)
         temp = [0]*n

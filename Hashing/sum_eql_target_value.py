@@ -18,7 +18,7 @@ class Solution:
                 return end
             end -= 1
     
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum(self, nums: List[int], target: int):
         temp = nums.copy()
         start = 0
         end = len(nums) - 1
