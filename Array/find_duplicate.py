@@ -19,6 +19,7 @@ Explanation - https://medium.com/@vipsb93/detect-cycle-and-find-the-duplicate-nu
 
 # use linked list cycle detection logic
 # slow = nums[slow] and fast = nums[nums[fast]]
+# cycle present means, 1 element is seen 2 times
 class Solution:
     def findDuplicate(self, nums: List[int]):
        
