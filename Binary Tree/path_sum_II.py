@@ -24,24 +24,19 @@ Return:
 # otherwise if path array change, that array in allpaths will also change because we append reference
 class Solution:
     
-    def findAllPaths(self, root, summ, path, allPath):
-        if root == None:
-            return
+    def pathSum(self, root: TreeNode, sum: int):
         
-        path.append(root.val)
-        
-        if root.left == None and root.right == None and summ == root.val: # add path in allpaths at leaf node only
-            temp = path.copy()
-            allPath.append(temp)
+        def findAllPath(node, summ, path):
+            if node == None:
+                return
             
-        self.findAllPaths(root.left, summ-root.val, path, allPath)
-        self.findAllPaths(root.right, summ-root.val, path, allPath)
-        path.pop()
+            if node.left == None and node.right == None and node.val == summ:
+                allPath.append(path + [node.val])
+                return
+            
+            findAllPath(node.left, summ - node.val, path + [node.val])
+            findAllPath(node.right, summ - node.val, path + [node.val])
         
-    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
-        
-        path = []
         allPath = []
-        self.findAllPaths(root, sum, path, allPath)
-        
+        findAllPath(root, sum, [])
         return allPath
