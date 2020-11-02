@@ -25,7 +25,7 @@ The flattened tree should look like:
 '''
 # method - 1
 # keep a stack, add first right node in stack then left node
-# attack popped node right to stack top and make left = None
+# attach popped node right to stack top and make left = None
 class Solution:
     def flatten(self, root: TreeNode):
         
@@ -45,3 +45,24 @@ class Solution:
             if len(stack) > 0:
                 node.right = stack[-1]
             node.left = None
+
+# method - 2
+# morris traversal - O(1) space
+class Solution:
+    def flatten(self, root: TreeNode):
+        
+        head = root
+        
+        while head.right or head.left:
+            if head.left:
+                t = head.left
+                while t.right:
+                    t = t.right
+                
+                t.right = head.right
+                head.right = head.left
+                head.left = None
+                
+            head = head.right
+        
+        return root
