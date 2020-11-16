@@ -43,7 +43,7 @@ class Solution:
         if h[totalsum] <= 0:
             del h[totalsum]
         
-    def pathSum(self, root: TreeNode, sum: int) -> int:
+    def pathSum(self, root: TreeNode, sum: int):
         
         if root == None:
             return 0
@@ -54,3 +54,26 @@ class Solution:
         count = [0]
         self.path(root, sum, h, totalsum, count)
         return count[0]
+    
+# print paths
+def printKPath(root, k): 
+
+    path = []
+    def findPath(node):
+        if not node:
+            return 
+        path.append(node.data)
+        findPath(node.left)
+        findPath(node.right)
+
+        summ = 0
+        # print subarray till current node
+        for i in range(len(path)-1, -1, -1):
+            summ += path[i]
+            if summ == k:
+                for j in range(i, len(path)):
+                    print(path[j], end = ' ')
+                print()
+        path.pop()
+
+    findPath(root)
