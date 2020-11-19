@@ -14,7 +14,7 @@ Explanation: Remove the three digits 4, 3, and 2 to form the new number 1219 whi
 
 # if current element is less than prv, then remove prv element
 class Solution:
-    def removeKdigits(self, num: str, k: int) -> str:
+    def removeKdigits(self, num: str, k: int):
         
         stack = []
         
@@ -25,6 +25,7 @@ class Solution:
                 k -= 1
             stack.append(digit)
         
+        # numbers are inc then remove k elements from last
         if k > 0:
             stack = stack[:-k]
             
