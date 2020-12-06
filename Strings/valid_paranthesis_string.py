@@ -16,7 +16,7 @@ Output: True
 class Solution:
 
 # method 1
-    def checkValidString(self, s: str) -> bool:
+    def checkValidString(self, s: str):
         
         count1 = 0
         count2 = 0
@@ -40,7 +40,7 @@ class Solution:
         return count2 == 0
 		
 # method 2 - input = "*()(())*()(()()((()(()()*)(*(())((((((((()*)(()(*)"
-	 def checkValidString(self, s: str) -> bool:
+	 def checkValidString(self, s: str):
         
         stack1 = []
         stack2 = []
