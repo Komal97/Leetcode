@@ -10,7 +10,28 @@ Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,50]], target = 13
 Output: false
 '''
 
-# O(log(mn))
+# method - 1 O(m+n) 
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        r = len(matrix)
+        if r <= 0:
+            return False
+        c = len(matrix[0])
+        
+        # start searching from first row last col value
+        i = 0
+        j = c-1
+
+        while(i<r and j>=0): 
+            if matrix[i][j] == target: 
+                return True
+            elif matrix[i][j] > target: # since value > target means can be present in next column 
+                j -= 1
+            else:   # else present in next row
+                i += 1
+        return False
+    
+# method - 2 O(log(mn))
 # row = mid / totalcol (total items we have / col of 1 row gives on which row we are)
 # col = mid % totalcol (works like a circular 1- D array)
 class Solution:
