@@ -12,6 +12,8 @@ Input: [3,3,7,7,10,11,11]
 Output: 10
 '''
 
+
+# recursive function
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
 
@@ -39,3 +41,32 @@ class Solution:
                     return find(nums, s, mid-1)
         return find(nums, s, e)
                 
+
+#iterative function]
+class Solution:
+    def singleNonDuplicate(self, nums: List[int]) -> int:
+        
+        n = len(nums)
+        s = 0
+        e = n-1
+        res = -1
+
+        while s <= e:
+            mid = s + (e-s)//2
+
+            if s == e:
+                res = s
+                break
+
+            if mid%2 == 0:
+                if mid+1 < n and nums[mid] == nums[mid+1]:
+                    s = mid+2
+                else:
+                    e = mid
+            else:
+                if mid-1 >=0 and nums[mid] == nums[mid-1]:
+                    s = mid + 1
+                else:
+                    e = mid-1
+        
+        return nums[res]
