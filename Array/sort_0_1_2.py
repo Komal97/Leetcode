@@ -22,22 +22,25 @@ Output: [0]
 # if mid = 0, swap with low then low += 1 & mid += 1
 # if mid = 1, mid += 1
 # else swap mid with high, high -= 1
+# similar to sort_0_1, following partitioning method
+# i = 0 region, j = 1 region, k = 2 region
 class Solution:
-    def sortColors(self, arr: List[int]):
-    
-        n = len(arr)
-        low = 0
-        high = n-1
-        mid = 0
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        i = 0
+        j = 0
+        k = len(nums)-1
+
+        while j <= k:
+            if nums[j] == 1:    # if j is in correct region
+                j += 1
+            elif nums[j] == 0:  # if j found 0, means move to i region
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+                j += 1
+            else:               # if j found 2, means move to k region
+                nums[k], nums[j] = nums[j], nums[k]
+                k -= 1
         
-        while mid <= high:
-            
-            if arr[mid] == 0:
-                arr[mid], arr[low] = arr[low], arr[mid]
-                low += 1
-                mid += 1
-            elif arr[mid] == 1:
-                mid += 1
-            else:
-                arr[mid], arr[high] = arr[high], arr[mid]
-                high -= 1
