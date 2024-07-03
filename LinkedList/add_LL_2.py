@@ -19,47 +19,47 @@ Output: 7 -> 8 -> 0 -> 7
 # keep position of numbers 
 # add number with same position only
 class Solution:
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode):
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         
-        def length(head):
+        def length(node):
             count = 0
-            while head:
-                head = head.next
+            while node:
+                node = node.next
                 count += 1
             return count
-        
-        def add(head1, lh1, head2, lh2, temp):
-            nonlocal carry
+
+        def addTwoNumbersHelper(l1, len1, l2, len2, temp):
+            if len1 == 0 and len2 == 0:
+                return 0
             
-            if lh1 == 0 and lh2 == 0:
-                return
-            
-            if lh1 > lh2:
-                add(head1.next, lh1-1, head2, lh2, temp.next)
-            elif lh1 < lh2:
-                add(head1, lh1, head2.next, lh2-1, temp.next)
+            data = 0
+            oc = 0
+            if len1 > len2:
+                oc = addTwoNumbersHelper(l1.next, len1-1, l2, len2, temp.next)
+                data = oc + l1.val
+            elif len1 < len2:
+                oc = addTwoNumbersHelper(l1, len1, l2.next, len2-1, temp.next)
+                data = oc + l2.val
             else:
-                add(head1.next, lh1-1, head2.next, lh2-1, temp.next)
-                
-            summ = (head1.val if lh1 >= lh2 else 0) + (head2.val if lh1 <= lh2 else 0) + carry
-            temp.val = summ%10
-            carry = summ//10
-                
-        
-        lh1 = length(l1)
-        lh2 = length(l2)
-        
-        head = l1 if lh1 > lh2 else l2
+                oc = addTwoNumbersHelper(l1.next, len1-1, l2.next, len2-1, temp.next)
+                data = oc + l1.val + l2.val
+
+            temp.val = data % 10
+            nc = data // 10
+            return nc
+
+
+        len1 = length(l1)
+        len2 = length(l2)
+        head = l1 if len1 > len2 else l2
         temp = head
-        carry = 0
-        
-        add(l1, lh1, l2, lh2, temp)
-        
-        if carry > 0:
-            n = ListNode(carry)
+        c = addTwoNumbersHelper(l1, len1, l2, len2, temp)
+        if c > 0:
+            n = ListNode(c)
             n.next = head
             head = n
         return head
+
         
         
         
