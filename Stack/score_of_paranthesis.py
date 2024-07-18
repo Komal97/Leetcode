@@ -26,33 +26,27 @@ Output: 6
 # if ) then, if s.top is ( means it was previous element, so pop it, push score 1 in stack
 # else pop from stack all scores, and sum them and push 2 * score
 class Solution:
-    def scoreOfParentheses(self, S: str):
+    def scoreOfParentheses(self, s: str) -> int:
         
-        stack = []
-        n = len(S)
-        
-        total = 0
-        i = 0
-        while i < n:
-            
-            if S[i] == '(':
-                stack.append('(')
+        st = []
+    
+        for ch in s:
+            if ch == '(':
+                st.append(ch)
             else:
-                if stack[-1] != '(':
-                    c = 0
-                    while len(stack) > 0 and stack[-1] != '(':
-                        c += int(stack.pop())
-
-                    stack.pop()
-                    stack.append(str(2*c))
+                if st[-1] == '(':
+                    st.pop()
+                    st.append('1')
                 else:
-                    stack.pop()
-                    stack.append('1')
-            i += 1
-                    
-        while len(stack) > 0:
-            total += int(stack.pop())
-            
+                    n = 0
+                    while len(st) > 0 and st[-1] != '(':
+                        n += int(st.pop())
+                    st.pop()
+                    st.append(str(2*n))
+        total = 0
+        while len(st) > 0:
+            total += int(st.pop())
+        
         return total
                     
 # method - 2
