@@ -12,7 +12,44 @@ Input: root = []
 Output: []
 '''
 
+# method 1 using recursion
+class Codec:
 
+    def serialize(self, root: TreeNode) -> str:
+        """Encodes a tree to a single string.
+        """
+        def traverse(node, arr):
+            if node == None:
+                arr.append('null')
+                return
+            arr.append(str(node.val))
+            traverse(node.left, arr)
+            traverse(node.right, arr)
+        
+        arr = []
+        traverse(root, arr)
+        return ' '.join(arr)
+            
+    def deserialize(self, data: str) -> TreeNode:
+        """Decodes your encoded data to tree.
+        """
+        def construct(idx):
+            
+            if arr[idx[0]] == 'null':
+                return None
+            
+            n = TreeNode(int(arr[idx[0]]))
+            idx[0] += 1
+            n.left = construct(idx)
+            idx[0] += 1
+            n.right = construct(idx)
+            return n
+        
+        arr = data.split()
+        idx = [0]
+        return construct(idx)
+    
+# method 2 using iterative algorithm   
 class Codec:
 
     def serialize(self, root: TreeNode):
