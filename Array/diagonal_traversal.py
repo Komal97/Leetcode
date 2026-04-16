@@ -19,13 +19,18 @@ class Solution:
         
         n, m, ans = len(matrix), len(matrix[0]), []
         
+        # each cell denotes the sum, every diagonal has same sum
         for i in range(n + m -1):
             if i & 1:
                 for j in range(i, -1, -1):
+                    # since i denotes the sum, i-j denotes the row index
+                    # since j is starting from i, means value can be bigger than number of columns
                     if j < m and (i-j) < n:
                         ans.append(matrix[i-j][j])
             else:
                 for j in range(i, -1, -1):
+                    # it is following the same pattern but in reverse order
+                    # hence j starts from i and goes to 0
                     if j < n and (i-j) < m:
                         ans.append(matrix[j][i-j])
         
